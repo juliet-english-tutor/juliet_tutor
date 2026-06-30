@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Verb "to be" – present & past (A1 test)</title>
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Roboto, system-ui, sans-serif;
+      background: #f4f9fd;
+      color: #1a2e3b;
+      padding: 2rem 1.5rem;
+      line-height: 1.5;
+    }
+
+    .container {
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    .header {
+      background: linear-gradient(145deg, #1b5b70, #0f4355);
+      color: white;
+      padding: 1.8rem 2.2rem;
+      border-radius: 40px;
+      margin-bottom: 2.5rem;
+      box-shadow: 0 12px 28px rgba(0, 30, 40, 0.15);
+    }
+
+    .header h1 {
+      font-size: 2.4rem;
+      font-weight: 600;
+      letter-spacing: -0.5px;
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+    }
+
+    .header h1 i {
+      color: #b3dfef;
+    }
+
+    .header .sub {
+      font-size: 1.1rem;
+      opacity: 0.9;
+      margin-top: 0.3rem;
+      border-left: 4px solid #7fc3db;
+      padding-left: 1.2rem;
+    }
+
+    .header .sub i {
+      margin-right: 0.5rem;
+      color: #b3dfef;
+    }
+
+    /* task cards */
+    .task-card {
+      background: white;
+      border-radius: 32px;
+      box-shadow: 0 8px 24px rgba(0, 20, 30, 0.06);
+      padding: 1.8rem 2rem 2rem 2rem;
+      margin-bottom: 2.2rem;
+      border: 1px solid #ddecf5;
+      transition: box-shadow 0.2s;
+    }
+
+    .task-card:hover {
+      box-shadow: 0 12px 32px rgba(0, 40, 60, 0.08);
+    }
+
+    .task-header {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      margin-bottom: 0.3rem;
+    }
+
+    .task-header h2 {
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: #0b4052;
+    }
+
+    .task-header .badge {
+      background: #c7e2ef;
+      color: #0b4052;
+      font-size: 0.75rem;
+      font-weight: 700;
+      padding: 0.15rem 1rem;
+      border-radius: 60px;
+      letter-spacing: 0.3px;
+      text-transform: uppercase;
+    }
+
+    .task-desc {
+      color: #2f6379;
+      margin-bottom: 1.5rem;
+      font-size: 0.95rem;
+      border-bottom: 1px dashed #cde0eb;
+      padding-bottom: 0.5rem;
+    }
+
+    .task-desc i {
+      margin-right: 0.4rem;
+      color: #308199;
+    }
+
+    /* question items */
+    .question-item {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 0.6rem 1.2rem;
+      background: #f6fcff;
+      padding: 0.7rem 1.2rem;
+      border-radius: 60px;
+      margin-bottom: 0.6rem;
+      border: 1px solid #dbeaf3;
+    }
+
+    .question-item .q-text {
+      font-weight: 500;
+      color: #00384b;
+      min-width: 160px;
+    }
+
+    .question-item .q-text i {
+      color: #3f8aa3;
+      margin-right: 0.4rem;
+      width: 1.2rem;
+    }
+
+    .question-item input {
+      border: 2px solid #c7dde9;
+      border-radius: 60px;
+      padding: 0.4rem 1.2rem;
+      font-size: 0.95rem;
+      background: white;
+      width: 140px;
+      transition: 0.15s;
+      font-weight: 500;
+      color: #003349;
+    }
+
+    .question-item input:focus {
+      outline: none;
+      border-color: #2f8eb0;
+      box-shadow: 0 0 0 3px rgba(47, 142, 176, 0.15);
+    }
+
+    .question-item input.correct {
+      border-color: #1f9b6e;
+      background: #e6faf2;
+    }
+
+    .question-item input.wrong {
+      border-color: #c74a4a;
+      background: #ffe9e9;
+    }
+
+    .question-item select {
+      border: 2px solid #c7dde9;
+      border-radius: 60px;
+      padding: 0.4rem 1.2rem;
+      font-size: 0.95rem;
+      background: white;
+      width: 150px;
+      font-weight: 500;
+      color: #003349;
+      cursor: pointer;
+      transition: 0.15s;
+    }
+
+    .question-item select:focus {
+      outline: none;
+      border-color: #2f8eb0;
+      box-shadow: 0 0 0 3px rgba(47, 142, 176, 0.15);
+    }
+
+    .question-item select.correct {
+      border-color: #1f9b6e;
+      background: #e6faf2;
+    }
+
+    .question-item select.wrong {
+      border-color: #c74a4a;
+      background: #ffe9e9;
+    }
+
+    /* task action buttons */
+    .task-actions {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 1rem 1.5rem;
+      margin-top: 1.2rem;
+      border-top: 1px solid #dae9f2;
+      padding-top: 1.2rem;
+    }
+
+    .check-btn {
+      background: #1f7a94;
+      border: none;
+      color: white;
+      font-weight: 600;
+      padding: 0.5rem 2rem;
+      border-radius: 60px;
+      font-size: 0.95rem;
+      cursor: pointer;
+      transition: 0.15s;
+      box-shadow: 0 3px 8px rgba(0, 60, 80, 0.08);
+      border: 1px solid #1a6a81;
+      letter-spacing: 0.3px;
+    }
+
+    .check-btn:hover {
+      background: #136a86;
+      transform: scale(1.02);
+      box-shadow: 0 6px 14px rgba(0, 60, 80, 0.12);
+    }
+
+    .check-btn:active {
+      transform: scale(0.97);
+    }
+
+    .reset-link {
+      font-size: 0.9rem;
+      color: #3e7f96;
+      cursor: pointer;
+      text-decoration: underline;
+      font-weight: 500;
+      background: none;
+      border: none;
+      padding: 0.3rem 0.6rem;
+    }
+
+    .reset-link:hover {
+      color: #0f4b60;
+    }
+
+    .feedback-msg {
+      margin-top: 0.5rem;
+      font-weight: 500;
+      color: #005073;
+      font-size: 0.95rem;
+      padding: 0.3rem 0.2rem;
+      flex: 1 1 100%;
+    }
+
+    .feedback-msg i {
+      margin-right: 0.4rem;
+    }
+
+    .footer-note {
+      margin-top: 3rem;
+      text-align: center;
+      color: #3d6f81;
+      font-size: 0.9rem;
+      border-top: 1px solid #cfe0ea;
+      padding-top: 2rem;
+    }
+
+    .footer-note i {
+      margin: 0 0.3rem;
+    }
+
+    .score-summary {
+      background: #dcecf5;
+      border-radius: 60px;
+      padding: 0.25rem 1.8rem;
+      display: inline-block;
+      font-weight: 600;
+      color: #0b3b4b;
+      margin-left: 0.5rem;
+    }
+
+    @media (max-width: 650px) {
+      body { padding: 1rem; }
+      .task-card { padding: 1.2rem; }
+      .question-item { border-radius: 20px; flex-direction: column; align-items: stretch; }
+      .question-item input, .question-item select { width: 100%; }
+      .header h1 { font-size: 1.8rem; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <!-- HEADER -->
+  <div class="header">
+    <h1><i class="fas fa-verb"></i> Verb "to be" <span style="font-weight:300; font-size:1.8rem; margin:0 0.2rem;">·</span> present & past</h1>
+    <div class="sub"><i class="fas fa-pencil-alt"></i> A1 practice · three tasks: choose, fill, and rewrite</div>
+  </div>
+
+  <!-- ========= TASK 1: MULTIPLE CHOICE ========= -->
+  <div class="task-card" id="task1">
+    <div class="task-header">
+      <h2><i class="fas fa-list-ul" style="color:#1f7a94;"></i> Task 1</h2>
+      <span class="badge">choose the correct form</span>
+    </div>
+    <div class="task-desc"><i class="fas fa-hand-pointer"></i> Select the right verb: <strong>am / is / are / was / were</strong></div>
+
+    <div class="question-item">
+      <span class="q-text"><i class="fas fa-user"></i> I _____ a student now.</span>
+      <select id="t1q1">
+        <option value="">— choose —</option>
+        <option value="am">am</option>
+        <option value="is">is</option>
+        <option value="are">are</option>
+        <option value="was">was</option>
+        <option value="were">were</option>
+      </select>
+    </div>
+
+    <div class="question-item">
+      <span class="q-text"><i class="fas fa-users"></i> They _____ at home yesterday.</span>
+      <select id="t1q2">
+        <option value="">— choose —</option>
+        <option value="am">am</option>
+        <option value="is">is</option>
+        <option value="are">are</option>
+        <option value="was">was</option>
+        <option value="were">were</option>
+      </select>
+    </div>
+
+    <div class="question-item">
+      <span class="q-text"><i class="fas fa-book"></i> This book _____ interesting.</span>
+      <select id="t1q3">
+        <option value="">— choose —</option>
+        <option value="am">am</option>
+        <option value="is">is</option>
+        <option value="are">are</option>
+        <option value="was">was</option>
+        <option value="were">were</option>
+      </select>
+    </div>
+
+    <div class="question-item">
+      <span class="q-text"><i class="fas fa-calendar"></i> We _____ at the park last Monday.</span>
+      <select id="t1q4">
+        <option value="">— choose —</option>
+        <option value="am">am</option>
+        <option value="is">is</option>
+        <option value="are">are</option>
+        <option value="was">was</option>
+        <option value="were">were</option>
+      </select>
+    </div>
+
+    <div class="question-item">
+      <span class="q-text"><i class="fas fa-smile"></i> My sister _____ very happy now.</span>
+      <select id="t1q5">
+        <option value="">— choose —</option>
+        <option value="am">am</option>
+        <option value="is">is</option>
+        <option value="are">are</option>
+        <option value="was">was</option>
+        <option value="were">were</option>
+      </select>
+    </div>
+
+    <div class="task-actions">
+      <button class="check-btn" data-task="1"><i class="fas fa-check-circle"></i> check task 1</button>
+      <button class="reset-link" data-task="1"><i class="fas fa-undo-alt"></i> clear</button>
+      <div class="feedback-msg" id="feedback1"></div>
+    </div>
+  </div>
+
+  <!-- ========= TASK 2: FILL IN THE BLANK ========= -->
+  <div class="task-card" id="task2">
+    <div class="task-header">
+      <h2><i class="fas fa-pen-fancy" style="color:#1f7a94;"></i> Task 2</h2>
+      <span class="badge">fill in: am / is / are / was / were</span>
+    </div>
+    <div class="task-desc"><i class="fas fa-edit"></i> Write the correct form of "to be" (present or past).</div>
+
+    <div class="question-item">
+      <span class="q-text"><i class="fas fa-robot"></i> She _____ a teacher now.</span>
+      <input type="text" id="t2q1" placeholder="type answer">
+    </div>
+
+    <div class="question-item">
+      <span class="q-text"><i class="fas fa-robot"></i> We _____ at the cinema last night.</span>
+      <input type="text" id="t2q2" placeholder="type answer">
+    </div>
+
+    <div class="question-item">
+      <span class="q-text"><i class="fas fa-robot"></i> I _____ tired yesterday.</span>
+      <input type="text" id="t2q3" placeholder="type answer">
+    </div>
+
+    <div class="question-item">
+      <span class="q-text"><i class="fas fa-robot"></i> You _____ my best friend.</span>
+      <input type="text" id="t2q4" placeholder="type answer">
+    </div>
+
+    <div class="question-item">
+      <span class="q-text"><i class="fas fa-robot"></i> The children _____ in the garden now.</span>
+      <input type="text" id="t2q5" placeholder="type answer">
+    </div>
+
+    <div class="task-actions">
+      <button class="check-btn" data-task="2"><i class="fas fa-check-circle"></i> check task 2</button>
+      <button class="reset-link" data-task="2"><i class="fas fa-undo-alt"></i> clear</button>
+      <div class="feedback-msg" id="feedback2"></div>
+    </div>
+  </div>
+
+  <!-- ========= TASK 3: REWRITE (present ↔ past) ========= -->
+  <div class="task-card" id="task3">
+    <div class="task-header">
+      <h2><i class="fas fa-exchange-alt" style="color:#1f7a94;"></i> Task 3</h2>
+      <span class="badge">rewrite: present ↔ past</span>
+    </div>
+    <div class="task-desc"><i class="fas fa-arrow-right"></i> Change the sentence from present to past, or past to present.</div>
+
+    <div class="question-item">
+      <span class="q-text"><i class="fas fa-arrow-right"></i> <strong>Now:</strong> He <u>is</u> at school. <br> <span style="font-size:0.9rem; color:#2f6379;">(yesterday)</span></span>
+      <input type="text" id="t3q1" placeholder="He ... at school yesterday." style="width:220px;">
+    </div>
+
+    <div class="question-item">
+      <span class="q-text"><i class="fas fa-arrow-right"></i> <strong>Yesterday:</strong> They <u>were</u> in London. <br> <span style="font-size:0.9rem; color:#2f6379;">(now)</span></span>
+      <input type="text" id="t3q2" placeholder="They ... in London now." style="width:220px;">
+    </div>
+
+    <div class="question-item">
+      <span class="q-text"><i class="fas fa-arrow-right"></i> <strong>Now:</strong> I <u>am</u> happy. <br> <span style="font-size:0.9rem; color:#2f6379;">(last week)</span></span>
+      <input type="text" id="t3q3" placeholder="I ... happy last week." style="width:220px;">
+    </div>
+
+    <div class="question-item">
+      <span class="q-text"><i class="fas fa-arrow-right"></i> <strong>Last summer:</strong> She <u>was</u> in Spain. <br> <span style="font-size:0.9rem; color:#2f6379;">(now)</span></span>
+      <input type="text" id="t3q4" placeholder="She ... in Spain now." style="width:220px;">
+    </div>
+
+    <div class="question-item">
+      <span class="q-text"><i class="fas fa-arrow-right"></i> <strong>Now:</strong> We <u>are</u> at home. <br> <span style="font-size:0.9rem; color:#2f6379;">(last night)</span></span>
+      <input type="text" id="t3q5" placeholder="We ... at home last night." style="width:220px;">
+    </div>
+
+    <div class="task-actions">
+      <button class="check-btn" data-task="3"><i class="fas fa-check-circle"></i> check task 3</button>
+      <button class="reset-link" data-task="3"><i class="fas fa-undo-alt"></i> clear</button>
+      <div class="feedback-msg" id="feedback3"></div>
+    </div>
+  </div>
+
+  <div class="footer-note">
+    <i class="fas fa-star"></i> Verb "to be" · present: <strong>am / is / are</strong>  ·  past: <strong>was / were</strong> <i class="fas fa-star"></i>
+  </div>
+</div>
+
+<script>
+  (function() {
+    // ----- expected answers -----
+    // Task 1 (select) answers
+    const task1Answers = ['am', 'were', 'is', 'were', 'is'];
+    // Task 2 (fill) answers
+    const task2Answers = ['is', 'were', 'was', 'are', 'are'];
+    // Task 3 (rewrite) – we check the key verb form inside the sentence
+    // we'll check if the answer contains the correct form (case-insensitive)
+    const task3Answers = ['was', 'are', 'was', 'is', 'were'];
+
+    // ----- check function for task 1 (select) -----
+    function checkTask1() {
+      const ids = ['t1q1', 't1q2', 't1q3', 't1q4', 't1q5'];
+      let allCorrect = true;
+      ids.forEach((id, idx) => {
+        const select = document.getElementById(id);
+        const selected = select.value;
+        const expected = task1Answers[idx];
+        const isCorrect = selected.toLowerCase() === expected.toLowerCase();
+        select.classList.remove('correct', 'wrong');
+        if (selected !== '') {
+          if (isCorrect) {
+            select.classList.add('correct');
+          } else {
+            select.classList.add('wrong');
+          }
+        }
+        if (!isCorrect) allCorrect = false;
+      });
+      showFeedback(1, allCorrect);
+    }
+
+    // ----- check function for task 2 (fill) -----
+    function checkTask2() {
+      const ids = ['t2q1', 't2q2', 't2q3', 't2q4', 't2q5'];
+      let allCorrect = true;
+      ids.forEach((id, idx) => {
+        const input = document.getElementById(id);
+        const val = input.value.trim();
+        const expected = task2Answers[idx];
+        const isCorrect = val.toLowerCase() === expected.toLowerCase();
+        input.classList.remove('correct', 'wrong');
+        if (val !== '') {
+          if (isCorrect) {
+            input.classList.add('correct');
+          } else {
+            input.classList.add('wrong');
+          }
+        }
+        if (!isCorrect) allCorrect = false;
+      });
+      showFeedback(2, allCorrect);
+    }
+
+    // ----- check function for task 3 (rewrite) -----
+    function checkTask3() {
+      const ids = ['t3q1', 't3q2', 't3q3', 't3q4', 't3q5'];
+      let allCorrect = true;
+      ids.forEach((id, idx) => {
+        const input = document.getElementById(id);
+        const val = input.value.trim().toLowerCase();
+        const expected = task3Answers[idx].toLowerCase();
+        // we check if the answer contains the expected form (simple)
+        // but also we want to avoid false positives: we check that the form appears as a word.
+        // we'll use a simple regex: word boundary
+        const regex = new RegExp('\\b' + expected + '\\b');
+        const isCorrect = regex.test(val);
+        input.classList.remove('correct', 'wrong');
+        if (val !== '') {
+          if (isCorrect) {
+            input.classList.add('correct');
+          } else {
+            input.classList.add('wrong');
+          }
+        }
+        if (!isCorrect) allCorrect = false;
+      });
+      showFeedback(3, allCorrect);
+    }
+
+    // ----- show feedback -----
+    function showFeedback(taskNum, allCorrect) {
+      const fb = document.getElementById('feedback' + taskNum);
+      if (fb) {
+        if (allCorrect) {
+          fb.innerHTML = '<i class="fas fa-star" style="color:#1f9b6e;"></i> Excellent! All answers are correct!';
+          fb.style.color = '#1a7a5a';
+        } else {
+          fb.innerHTML = '<i class="fas fa-pen" style="color:#c74a4a;"></i> Some answers are not correct. Check the red fields and try again.';
+          fb.style.color = '#b34040';
+        }
+      }
+    }
+
+    // ----- clear function for each task -----
+    function clearTask(taskNum) {
+      let ids = [];
+      if (taskNum === 1) {
+        ids = ['t1q1', 't1q2', 't1q3', 't1q4', 't1q5'];
+        ids.forEach(id => {
+          const el = document.getElementById(id);
+          if (el) { el.value = ''; el.classList.remove('correct', 'wrong'); }
+        });
+      } else if (taskNum === 2) {
+        ids = ['t2q1', 't2q2', 't2q3', 't2q4', 't2q5'];
+        ids.forEach(id => {
+          const el = document.getElementById(id);
+          if (el) { el.value = ''; el.classList.remove('correct', 'wrong'); }
+        });
+      } else if (taskNum === 3) {
+        ids = ['t3q1', 't3q2', 't3q3', 't3q4', 't3q5'];
+        ids.forEach(id => {
+          const el = document.getElementById(id);
+          if (el) { el.value = ''; el.classList.remove('correct', 'wrong'); }
+        });
+      }
+      const fb = document.getElementById('feedback' + taskNum);
+      if (fb) {
+        fb.innerHTML = '';
+        fb.style.color = '#005073';
+      }
+    }
+
+    // ----- attach event listeners -----
+    // Task 1
+    document.querySelector('[data-task="1"].check-btn').addEventListener('click', checkTask1);
+    document.querySelector('[data-task="1"].reset-link').addEventListener('click', function() { clearTask(1); });
+
+    // Task 2
+    document.querySelector('[data-task="2"].check-btn').addEventListener('click', checkTask2);
+    document.querySelector('[data-task="2"].reset-link').addEventListener('click', function() { clearTask(2); });
+
+    // Task 3
+    document.querySelector('[data-task="3"].check-btn').addEventListener('click', checkTask3);
+    document.querySelector('[data-task="3"].reset-link').addEventListener('click', function() { clearTask(3); });
+
+    // optional: Enter key on inputs for task2 and task3
+    document.querySelectorAll('#task2 input, #task3 input').forEach(input => {
+      input.addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') {
+          const parentCard = this.closest('.task-card');
+          if (parentCard) {
+            const id = parentCard.id;
+            if (id === 'task2') checkTask2();
+            else if (id === 'task3') checkTask3();
+          }
+        }
+      });
+    });
+
+    // Enter key for select (task1) – trigger check on Enter
+    document.querySelectorAll('#task1 select').forEach(select => {
+      select.addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') {
+          checkTask1();
+        }
+      });
+    });
+
+  })();
+</script>
+</body>
+</html>
